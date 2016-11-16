@@ -77,6 +77,35 @@ class BinarySearchTreeTest(unittest.TestCase):
         self.assertEqual(tree.insert_node(50, "Test Movie 3"), None)
         self.assertEqual(tree.insert_node(25, "Test Movie 4"), None)
 
+    def test_tree_includes_score(self):
+        tree = bs.BinarySearchTree()
+        tree.insert_node(50, "Test Movie")
+        tree.insert_node(25, "Test Movie 2")
+
+        self.assertEqual(tree.include(50), True)
+        self.assertEqual(tree.include(25), True)
+        self.assertEqual(tree.include(10), False)
+
+    def test_tree_shows_depth(self):
+        tree = bs.BinarySearchTree()
+        tree.insert_node(50, "Test Movie")
+
+        self.assertEqual(tree.get_depth(50), 0)
+
+    def test_tree_shows_multiple_depths(self):
+        tree = bs.BinarySearchTree()
+        tree.insert_node(50, "Test Movie")
+        tree.insert_node(25, "Test Movie 2")
+        tree.insert_node(100, "Test Movie 3")
+        tree.insert_node(35, "Test Movie 4")
+        tree.insert_node(30, "Test Movie 5")
+
+        self.assertEqual(tree.get_depth(50), 0)
+        self.assertEqual(tree.get_depth(25), 1)
+        self.assertEqual(tree.get_depth(100), 1)
+        self.assertEqual(tree.get_depth(35), 2)
+        self.assertEqual(tree.get_depth(30), 3)
+
 
 if __name__ == '__main__':
     unittest.main()
