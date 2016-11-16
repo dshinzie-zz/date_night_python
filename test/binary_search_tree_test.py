@@ -90,7 +90,7 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree = bs.BinarySearchTree()
         tree.insert_node(50, "Test Movie")
 
-        self.assertEqual(tree.get_depth(50), 0)
+        self.assertEqual(tree.depth_of(50), 0)
 
     def test_tree_shows_multiple_depths(self):
         tree = bs.BinarySearchTree()
@@ -100,18 +100,18 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree.insert_node(35, "Test Movie 4")
         tree.insert_node(30, "Test Movie 5")
 
-        self.assertEqual(tree.get_depth(50), 0)
-        self.assertEqual(tree.get_depth(25), 1)
-        self.assertEqual(tree.get_depth(100), 1)
-        self.assertEqual(tree.get_depth(35), 2)
-        self.assertEqual(tree.get_depth(30), 3)
+        self.assertEqual(tree.depth_of(50), 0)
+        self.assertEqual(tree.depth_of(25), 1)
+        self.assertEqual(tree.depth_of(100), 1)
+        self.assertEqual(tree.depth_of(35), 2)
+        self.assertEqual(tree.depth_of(30), 3)
 
     def test_tree_returns_max(self):
         tree = bs.BinarySearchTree()
         tree.insert_node(50, "Test Movie")
         tree.insert_node(25, "Test Movie 2")
 
-        self.assertEqual(tree.get_max(), { "Test Movie": 50 })
+        self.assertEqual(tree.max(), { "Test Movie": 50 })
 
     def test_tree_returns_max_multiple(self):
         tree = bs.BinarySearchTree()
@@ -121,14 +121,14 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree.insert_node(35, "Test Movie 4")
         tree.insert_node(30, "Test Movie 5")
 
-        self.assertEqual(tree.get_max(), { "Test Movie 3": 100 })
+        self.assertEqual(tree.max(), { "Test Movie 3": 100 })
 
     def test_tree_returns_min(self):
         tree = bs.BinarySearchTree()
         tree.insert_node(50, "Test Movie")
         tree.insert_node(25, "Test Movie 2")
 
-        self.assertEqual(tree.get_min(), { "Test Movie 2": 25 })
+        self.assertEqual(tree.min(), { "Test Movie 2": 25 })
 
     def test_tree_returns_min_multiple(self):
         tree = bs.BinarySearchTree()
@@ -138,7 +138,23 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree.insert_node(35, "Test Movie 4")
         tree.insert_node(30, "Test Movie 5")
 
-        self.assertEqual(tree.get_min(), { "Test Movie 2": 25 })
+        self.assertEqual(tree.min(), { "Test Movie 2": 25 })
+
+    def test_tree_sorts_left(self):
+        tree = bs.BinarySearchTree()
+        tree.insert_node(50, "Test Movie")
+        tree.insert_node(25, "Test Movie 2")
+        expected = [{"Test Movie 2": 25}, {"Test Movie": 50}]
+
+        self.assertEqual(tree.sort(), expected)
+
+    def test_tree_sorts_right(self):
+        tree = bs.BinarySearchTree()
+        tree.insert_node(50, "Test Movie")
+        tree.insert_node(75, "Test Movie 2")
+        expected = [{"Test Movie": 50}, {"Test Movie 2": 75}]
+
+        self.assertEqual(tree.sort(), expected)
 
 if __name__ == '__main__':
     unittest.main()

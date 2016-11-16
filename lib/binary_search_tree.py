@@ -6,7 +6,6 @@ import node as n
 class BinarySearchTree:
     def __init__(self, root=None, sorted=[]):
         self.root = root
-        self.sorted = sorted
         self.health = []
 
     def insert_node(self, score, movie, current_node=None, depth=1):
@@ -19,6 +18,7 @@ class BinarySearchTree:
         else:
             if score == current_node.score():
                 return None
+
             if score < current_node.score():
                 self.insert_side("left", current_node, score, movie, depth)
             else:
@@ -53,7 +53,7 @@ class BinarySearchTree:
             else:
                 return self.include(score, current_node.right, False)
 
-    def get_depth(self, score, current_node=None, depth=0, first_run=True):
+    def depth_of(self, score, current_node=None, depth=0, first_run=True):
         if first_run:
             current_node = self.root
 
@@ -63,24 +63,45 @@ class BinarySearchTree:
             if score == current_node.score():
                 return depth
             elif score < current_node.score():
-                return self.get_depth(score, current_node.left, depth + 1, False)
+                return self.depth_of(score, current_node.left, depth + 1, False)
             elif score > current_node.score():
-                return self.get_depth(score, current_node.right, depth + 1, False)
+                return self.depth_of(score, current_node.right, depth + 1, False)
 
-    def get_max(self, current_node=None, first_run=True):
+    def max(self, current_node=None, first_run=True):
         if first_run:
             current_node = self.root
 
         if current_node.right is None:
             return current_node.data
         else:
-            return self.get_max(current_node.right, False)
+            return self.max(current_node.right, False)
 
-    def get_min(self, current_node=None, first_run=True):
+    def min(self, current_node=None, first_run=True):
         if first_run:
             current_node = self.root
 
         if current_node.left is None:
             return current_node.data
         else:
-            return self.get_min(current_node.left, False)
+            return self.min(current_node.left, False)
+
+    def sort(self, current_node=None, first_run=True):
+        sorted = []
+
+        if first_run:
+            current_node = self.root
+
+        if self.root is None:
+            return sorted
+
+        self.traverse_sort(current_node, sorted)
+        return sorted
+
+    def traverse_sort(self, node, sorted):
+        if node is None:
+            return
+
+        self.traverse_sort(node.left, sorted)
+
+        sorted.append(node.data)
+        self.traverse_sort(node.right, sorted)
