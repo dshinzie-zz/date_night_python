@@ -7,7 +7,7 @@ class BinarySearchTree:
     def __init__(self, root=None, sorted=[]):
         self.root = root
         self.sorted = sorted
-        self.healh = []
+        self.health = []
 
     def insert_node(self, score, movie, current_node=None, depth=1):
         if current_node is None:
@@ -66,3 +66,21 @@ class BinarySearchTree:
                 return self.get_depth(score, current_node.left, depth + 1, False)
             elif score > current_node.score():
                 return self.get_depth(score, current_node.right, depth + 1, False)
+
+    def get_max(self, current_node=None, first_run=True):
+        if first_run:
+            current_node = self.root
+
+        if current_node.right is None:
+            return current_node.data
+        else:
+            return self.get_max(current_node.right, False)
+
+    def get_min(self, current_node=None, first_run=True):
+        if first_run:
+            current_node = self.root
+
+        if current_node.left is None:
+            return current_node.data
+        else:
+            return self.get_min(current_node.left, False)

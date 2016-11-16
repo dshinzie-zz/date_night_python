@@ -1,7 +1,7 @@
 class Node:
 
     def __init__(self, score, movie):
-        self.data = {movie: score}
+        self.data = { movie: score }
         self.left = None
         self.right = None
 
