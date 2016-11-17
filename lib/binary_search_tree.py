@@ -116,7 +116,7 @@ class BinarySearchTree:
         if first_run:
             current_node = self.root
             self.health = []
-            
+
         if current_node is None:
             return
 
